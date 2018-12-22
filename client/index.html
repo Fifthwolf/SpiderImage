@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="referrer" content="no-referrer" />
+  <title>图片获取工具</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <header>
+    <div class="mask"></div>
+    <h2>图片获取工具</h2>
+  </header>
+  <main>
+    <div class="head-img"></div>
+    <div class="wrap">
+      <div class="form-wrap">
+        <form id="main-form" method="post">
+          <label for="pageUrls">页面地址</label>
+          <!--<textarea rows="8" cols="45" id="pageUrls" name="pageUrls" class="pageUrls">http://</textarea>-->
+          <textarea rows="8" cols="45" id="pageUrls" name="pageUrls" class="pageUrls">http://www.acfun.cn/a/ac4803221
+http://www.acfun.cn/a/ac4803836
+http://www.acfun.cn/a/ac4802664</textarea>
+          <div class="button">
+            <input type="button" id="submit" value="提交" />
+            <input type="button" id="reset" value="重置" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <span>版本 0.0.1</span>
+    <span>服务器地址</span>
+    <input id="server" value="http://192.168.0.102:8000/">
+  </footer>
+</body>
+<script src="index.js"></script>
+</html>

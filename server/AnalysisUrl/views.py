@@ -12,9 +12,9 @@ from Acfun import views as acfun
 # Create your views here.
 def init(request):
     results = []
-    json_result = json.loads(request.body)
+    url_list = json.loads(request.body)
 
-    for url in json_result:
+    for url in url_list:
         if get_attribute(url).get('domain') == 'acfun':
             result = acfun.get_article(url)
             results.append(result)

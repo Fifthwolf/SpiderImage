@@ -1,0 +1,125 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background-color: #ddd;
+}
+
+header {
+  right: 0;
+  height: 42px;
+  z-index: 10;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 0.4);
+
+  &, .mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .mask {
+    width: 100%;
+    height: 100%;
+    filter: blur(10px);
+  }
+
+  h2 {
+    position: absolute;
+    margin-left: 20px;
+    line-height: 42px;
+    font-size: 16px;
+    color: #fff;
+    font-family: 'Microsoft YaHei';
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  }
+}
+
+main {
+  position: absolute;
+  top: 0;
+  bottom: 30px;
+  left: 0;
+  right: 0;
+  background: linear-gradient(#fff, #aaa);
+  overflow: auto;
+  text-align: center;
+}
+
+.head-img {
+    height: 170px;
+    background: url("head.png") 0 0 no-repeat;
+    background-position: center;
+}
+
+.wrap {
+  display: inline-block;
+  margin: 10px auto 20px;
+  padding: 20px;
+}
+
+.form-wrap {
+  margin: 0 auto;
+  padding: 20px;
+  width: 420px;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  background-color: #567;
+
+  form {
+    margin-bottom: 20px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    &:last-child {
+      margin-bottom: 0;
+    }
+    .pageUrls {
+      margin-top: 5px;
+      resize: none;
+    }
+    label {
+      margin-right: 10px;
+    }
+    .button {
+      text-align: center;
+    }
+    input {
+      margin-bottom: 10px;
+    }
+    input[name=pageUrls] {
+      width: 380px;
+    }
+    input[type=button] {
+      display: inline-block;
+      margin: 10px 5px 0;
+      width: 80px;
+      height: 30px;
+    }
+  }
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  line-height: 30px;
+  background-color: #345;
+  box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.2);
+
+  span {
+    margin-left: 20px;
+    color: #fff;
+  }
+
+  input {
+    width: 300px;
+  }
+}

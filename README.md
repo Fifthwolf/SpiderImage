@@ -6,4 +6,4 @@
 (http://www.acfun.cn/a/ac + 数字)
 
 ## 其他
-需要第三方库：Django, BeautifulSoup4
+需要第三方库：Django, django-cors-headers, BeautifulSoup4

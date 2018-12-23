@@ -1,15 +1,14 @@
 let mainForm = $('main-form'),
     submit = $('submit'),
     reset = $('reset'),
+    resultDiv = $('result'),
     server = $('server');
 
-let data = {
-  images: []
-};
+let images_list = [];
 
 let ajax = {
   post: (url, data, fn) => {
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.open('POST', url, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
@@ -23,84 +22,77 @@ let ajax = {
 }
 
 submit.addEventListener('click', function() {
-  ajax.post(server.value, serializeForm(mainForm), result);
+  ajax.post(server.value, serializeForm(mainForm), generateResult);
 });
 
 reset.addEventListener('click', resetEvent);
 
 function resetEvent() {
-  data = {};
-  submit.disabled = false;
-  imagesDown.disabled = true;
+  images_list = [];
 
   //页面地址栏清空
   pageAddressInput = mainForm.getElementsByClassName('pageAddress');
-  for (var i = pageAddressInput.length - 1; i >= 1; i--) {
+  for (let i = pageAddressInput.length - 1; i >= 1; i--) {
     mainForm.removeChild(pageAddressInput[i]);
   }
 
   //结果清空
   resultItem = resultDiv.getElementsByClassName('item');
-  for (var i = resultItem.length - 1; i >= 0; i--) {
+  for (let i = resultItem.length - 1; i >= 0; i--) {
     resultDiv.removeChild(resultItem[i]);
   }
 }
 
-function result(e) {
-
-  console.log(e)
-
+function generateResult(e) {
   try {
-    var result = JSON.parse(e);
-    for (var i of result) {
-      for (var index in i.images) {
-        data.images.push([i.images[index], i.title]);
+    let result = JSON.parse(e);
+    for (let i of result) {
+      for (let index in i.images) {
+        // 当前所有图片信息
+        images_list.push({
+          title: i.title,
+          url: i.images[index]
+        });
       }
       _createDom(i, resultDiv);
     }
-    imagesDown.disabled = false;
+    console.log(images_list)
   } catch (err) {
     console.log(err);
   }
 
   function _createDom(info, parent) {
-    var item = _createElementHaveClass('div', 'item', '', parent)
+    let item = _createElementHaveClass('div', 'item', '', parent);
+
     _createHead(info, item);
+
     if (info.title != '无效地址') {
-      _createImgwrapper(info, item);
+      _createImgWrap(info, item);
     }
 
     function _createHead(info, parent) {
-      var itemHead = _createElementHaveClass('div', 'item-head', '', parent);
+      let itemHead = _createElementHaveClass('div', 'item-head', '', parent);
       _createElementHaveClass('p', 'title', info.title, itemHead);
-      _createElementHaveClass('a', 'url', '<a href="' + info.url + '">' + info.url + '</a>', itemHead);
+      _createElementHaveClass('a', 'url', '<a target="_blank" href="' + info.url + '">' + info.url + '</a>', itemHead);
     }
 
-    function _createImgwrapper(info, parent) {
-      var imgWrapper = _createElementHaveClass('div', 'img-wrapper', '', parent);
-      for (var image of info.images) {
-        var img = document.createElement('img');
+    function _createImgWrap(info, parent) {
+      let imgWrap = _createElementHaveClass('div', 'img-wrapper', '', parent);
+
+      for (let image of info.images) {
+        let img = document.createElement('img');
         img.setAttribute('src', image);
-        imgWrapper.appendChild(img);
+        imgWrap.appendChild(img);
       }
     }
 
     function _createElementHaveClass(type, className, content, parent) {
-      var ele = document.createElement(type);
+      let ele = document.createElement(type);
       ele.setAttribute('class', className);
       ele.innerHTML = content;
       parent.appendChild(ele);
       return ele;
     }
-  }
-}
-
-function imagesResult(e) {
-  if (e == 1) {
-    alert('下载成功！');
-    imagesDown.innerHTML = '下载成功';
-    imagesDown.disabled = false;
-    reset.disabled = false;
   }
 }
 
@@ -122,15 +114,6 @@ function serializeForm(form) {
   }
 
   return JSON.stringify(url_list);
-}
-
-function serializeImages(images) {
-  var imagesdata = '';
-  for (var i = 0; i < images.length; i++) {
-    imagesdata += 'images=' + encodeURIComponent(images[i]) + '&';
-  }
-  imagesdata += 'path=' + encodeURIComponent(imagesDownAddress.value);
-  return imagesdata;
 }
 
 function $(id) {

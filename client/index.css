@@ -82,6 +82,41 @@ main {
       width: 80px;
       height: 30px; }
 
+.result .handle {
+  margin: 10px auto;
+  width: 420px;
+  background-color: #567;
+  text-align: left; }
+  .result .handle label {
+    font-size: 14px;
+    margin-right: 10px; }
+  .result .handle input {
+    width: 250px; }
+  .result .handle #images-down {
+    margin-left: 10px;
+    width: 60px;
+    height: 20px; }
+.result .item {
+  margin-top: 10px;
+  border-radius: 10px;
+  background-color: #567;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8); }
+  .result .item .item-head {
+    padding: 14px 0 8px;
+    line-height: 18px;
+    color: #fff; }
+  .result .item .img-wrapper img {
+    float: left;
+    margin: 0 10px 20px;
+    width: 100px;
+    height: 100px; }
+  .result .item .img-wrapper::after {
+    content: '.';
+    display: block;
+    visibility: hidden;
+    height: 0;
+    clear: both; }
+
 footer {
   position: absolute;
   bottom: 0;

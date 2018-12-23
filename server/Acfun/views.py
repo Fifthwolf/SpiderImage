@@ -23,6 +23,7 @@ def get_article(url):
         'domain': 'acfun',
         'type': 'article',
         'title': title,
+        'url': url,
         'images': images
     }
 

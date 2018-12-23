@@ -1,8 +1,8 @@
 let mainForm = $('main-form'),
-    submit = $('submit'),
-    reset = $('reset'),
+    submitButton = $('submit'),
+    resetButton = $('reset'),
     resultDiv = $('result'),
-    server = $('server');
+    serverInput = $('server');
 
 let images_list = [];
 
@@ -21,11 +21,12 @@ let ajax = {
   }
 }
 
-submit.addEventListener('click', function() {
-  ajax.post(server.value, serializeForm(mainForm), generateResult);
+submitButton.addEventListener('click', function() {
+  resetEvent();
+  ajax.post(serverInput.value, serializeForm(mainForm), generateResult);
 });
 
-reset.addEventListener('click', resetEvent);
+resetButton.addEventListener('click', resetEvent);
 
 function resetEvent() {
   images_list = [];
@@ -56,7 +57,6 @@ function generateResult(e) {
       }
       _createDom(i, resultDiv);
     }
-    console.log(images_list)
   } catch (err) {
     console.log(err);
   }

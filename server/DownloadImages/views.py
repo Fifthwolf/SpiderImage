@@ -11,16 +11,17 @@ import urllib, zipfile, re, os, json
 def init(request):
     results = []
     img_list = json.loads(request.body)
+    mkdir('downloadImg')
 
     for img in img_list:
         imgUrl = img['url']
         imgPath = 'downloadImg' + '/' + img['title']
         fileName = re.findall(r"\/([^/]+\.\w+$)", imgUrl)[0]
-        mkdir('downloadImg')
         mkdir(imgPath)
         urllib.urlretrieve(imgUrl, imgPath + '/' + fileName)
-        compress('downloadImg', 'images.zip')
-        return returnFile('images.zip')
+
+    compress('downloadImg', 'images.zip')
+    return returnFile('images.zip')
 
 
 def mkdir(path):

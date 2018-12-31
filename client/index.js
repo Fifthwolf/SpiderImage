@@ -38,11 +38,15 @@ submitButton.addEventListener('click', () => {
 resetButton.addEventListener('click', resetEvent);
 
 downloadButton.addEventListener('click', () => {
+  downloadButton.disabled = true;
+  downloadButton.value = '服务器下载中';
+
   let data = JSON.stringify(images_list);
   ajax.post(`${serverInput.value}download/`, 'blob', data, generateDownload);
 });
 
 function resetEvent() {
+  downloadButton.disabled = true;
   images_list = [];
 
   //页面地址栏清空
@@ -71,6 +75,7 @@ function generateResult(e) {
         });
       }
       _createDom(i, resultDiv);
+      downloadButton.disabled = false;
     }
   } catch (err) {
     console.log(err);
@@ -145,6 +150,9 @@ function generateDownload(e) {
   link.dispatchEvent(evt);
 
   document.body.removeChild(link);
+
+  downloadButton.disabled = false;
+  downloadButton.value = '下载所有图片';
 }
 
 function $(id) {

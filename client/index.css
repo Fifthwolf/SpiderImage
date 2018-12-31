@@ -76,10 +76,14 @@ main {
       margin-bottom: 10px; }
     .form-wrap form input[name=pageUrls] {
       width: 380px; }
-    .form-wrap form input[type=button] {
+    .form-wrap form .submit, .form-wrap form .reset {
       display: inline-block;
       margin: 10px 5px 0;
       width: 80px;
+      height: 30px; }
+    .form-wrap form .download {
+      margin: 0;
+      width: 100px;
       height: 30px; }
 
 .result .handle {

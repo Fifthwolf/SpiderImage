@@ -15,17 +15,21 @@
     <div class="head-img"></div>
     <div class="wrap">
       <div class="form-wrap">
-        <form id="main-form" method="post">
+        <form id="main-form">
           <label for="pageUrls">页面地址</label>
           <!--<textarea rows="8" cols="45" id="pageUrls" name="pageUrls" class="pageUrls">http://</textarea>-->
-          <textarea rows="8" cols="45" id="pageUrls" name="pageUrls" class="pageUrls">http://www.acfun.cn/a/ac4803221
-http://www.acfun.cn/a/ac4803836
-https://www.bilibili.com/read/cv1747731
-https://www.bilibili.com/read/cv1747760</textarea>
+          <textarea rows="8" cols="45" id="pageUrls" name="pageUrls" class="pageUrls">
+http://www.acfun.cn/a/ac4803221
+https://www.bilibili.com/read/cv1747731</textarea>
+
+<!-- https://www.pixiv.net/member_illust.php?mode=medium&illust_id=61839219 -->
           <div class="button">
-            <input type="button" id="submit" value="提交" />
-            <input type="button" id="reset" value="重置" />
+            <input type="button" class="submit" id="submit" value="提交" />
+            <input type="button" class="reset" id="reset" value="重置" />
           </div>
+        </form>
+        <form id="main-form">
+          <input type="button" class="download" id="download" value="下载所有图片" />
         </form>
       </div>
       <div id="result" class="result"></div>
@@ -34,7 +38,7 @@ https://www.bilibili.com/read/cv1747760</textarea>
   <footer>
     <span>版本 0.0.1</span>
     <span>服务器地址</span>
-    <input id="server" value="http://192.168.0.101:8000/">
+    <input id="server" value="http://192.168.0.102:8000/">
   </footer>
 </body>
 <script src="index.js"></script>

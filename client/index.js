@@ -1,6 +1,7 @@
 let mainForm = $('main-form'),
     submitButton = $('submit'),
     resetButton = $('reset'),
+    downloadButton = $('download'),
     resultDiv = $('result'),
     serverInput = $('server');
 
@@ -21,12 +22,17 @@ let ajax = {
   }
 }
 
-submitButton.addEventListener('click', function() {
+submitButton.addEventListener('click', () => {
   resetEvent();
-  ajax.post(serverInput.value, serializeForm(mainForm), generateResult);
+  ajax.post(`${serverInput.value}analysis/`, serializeForm(mainForm), generateResult);
 });
 
 resetButton.addEventListener('click', resetEvent);
+
+downloadButton.addEventListener('click', () => {
+  let data = JSON.stringify(images_list);
+  ajax.post(`${serverInput.value}download/`, data, generateDownload);
+});
 
 function resetEvent() {
   images_list = [];
@@ -44,6 +50,7 @@ function resetEvent() {
   }
 }
 
+// 创建结果列表
 function generateResult(e) {
   try {
     let result = JSON.parse(e);
@@ -114,6 +121,11 @@ function serializeForm(form) {
   }
 
   return JSON.stringify(url_list);
+}
+
+// 生成下载按钮
+function generateDownload(e) {
+  console.log(e)
 }
 
 function $(id) {

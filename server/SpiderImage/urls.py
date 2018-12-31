@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from AnalysisUrl import views
+from AnalysisUrl import views as AnalysisUrl
+from DownloadImages import views as DownloadImages
 
 urlpatterns = [
-	url(r'^', views.init),
+	url(r'^analysis/$', AnalysisUrl.init),
+	url(r'^download/$', DownloadImages.init),
 ]

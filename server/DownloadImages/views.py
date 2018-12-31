@@ -4,24 +4,29 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http import HttpResponse
 
-import urllib, zipfile, re, os, json
+import urllib, zipfile, shutil
+import re, os, json
 
+DOWNLOAD_FOLDER_NAME = 'ImgDown'
+DOWNLOAD_ZIP_NAME = 'images.zip'
 
 # Create your views here.
 def init(request):
     results = []
     img_list = json.loads(request.body)
-    mkdir('downloadImg')
+    mkdir(DOWNLOAD_FOLDER_NAME)
 
     for img in img_list:
         imgUrl = img['url']
-        imgPath = 'downloadImg' + '/' + img['title']
+        imgPath = DOWNLOAD_FOLDER_NAME + '/' + img['title']
         fileName = re.findall(r"\/([^/]+\.\w+$)", imgUrl)[0]
         mkdir(imgPath)
         urllib.urlretrieve(imgUrl, imgPath + '/' + fileName)
 
-    compress('downloadImg', 'images.zip')
-    return returnFile('images.zip')
+    compress(DOWNLOAD_FOLDER_NAME, DOWNLOAD_ZIP_NAME)
+    shutil.rmtree(DOWNLOAD_FOLDER_NAME)
+
+    return returnFile(DOWNLOAD_ZIP_NAME)
 
 
 def mkdir(path):
@@ -35,7 +40,7 @@ def compress(get_files_path, set_files_path):
         fpath = dirpath.replace(get_files_path,'')
         fpath = fpath and fpath + os.sep or ''
         for filename in filenames:
-            f.write(os.path.join(dirpath,filename), fpath+filename)
+            f.write(os.path.join(dirpath,filename), fpath + filename)
     f.close()
 
 
@@ -44,4 +49,5 @@ def returnFile(fileUri):
     response = HttpResponse(file)
     response['Content-Type'] = 'application/octet-stream'
     response['Content-Disposition'] = 'attachment;filename="images.zip"'
+    os.remove(fileUri)
     return response

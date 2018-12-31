@@ -7,15 +7,23 @@ let mainForm = $('main-form'),
 
 let images_list = [];
 
-let ajax = {
-  post: (url, data, fn) => {
+const ajax = {
+  post: (url, responseType, data, fn) => {
     let xhr = new XMLHttpRequest();
     xhr.open('POST', url, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
+    
+    if (responseType == 'blob') {
+      xhr.responseType = 'blob';
+    }
 
     xhr.onreadystatechange = () => {
       if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 304)) {
-        fn(xhr.responseText);
+        if (responseType == 'blob') {
+          fn(xhr.response);
+        } else {
+          fn(xhr.responseText);
+        }
       }
     };
     xhr.send(data);
@@ -24,14 +32,14 @@ let ajax = {
 
 submitButton.addEventListener('click', () => {
   resetEvent();
-  ajax.post(`${serverInput.value}analysis/`, serializeForm(mainForm), generateResult);
+  ajax.post(`${serverInput.value}analysis/`, 'json', serializeForm(mainForm), generateResult);
 });
 
 resetButton.addEventListener('click', resetEvent);
 
 downloadButton.addEventListener('click', () => {
   let data = JSON.stringify(images_list);
-  ajax.post(`${serverInput.value}download/`, data, generateDownload);
+  ajax.post(`${serverInput.value}download/`, 'blob', data, generateDownload);
 });
 
 function resetEvent() {
@@ -125,7 +133,18 @@ function serializeForm(form) {
 
 // 生成下载按钮
 function generateDownload(e) {
-  console.log(e)
+  let link = document.createElement('a');
+  link.href = window.URL.createObjectURL(e);
+  link.download = 'images.zip';
+
+  //此写法兼容可火狐浏览器
+  document.body.appendChild(link);
+
+  let evt = document.createEvent("MouseEvents");
+  evt.initEvent('click', false, false);
+  link.dispatchEvent(evt);
+
+  document.body.removeChild(link);
 }
 
 function $(id) {

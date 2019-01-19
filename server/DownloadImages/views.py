@@ -18,7 +18,7 @@ def init(request):
 
     for img in img_list:
         imgUrl = img['url']
-        imgPath = DOWNLOAD_FOLDER_NAME + '/' + img['title']
+        imgPath = DOWNLOAD_FOLDER_NAME + '/' + img['title'].replace('/', '-')
         fileName = re.findall(r"\/([^/]+\.\w+$)", imgUrl)[0]
         mkdir(imgPath)
         urllib.urlretrieve(imgUrl, imgPath + '/' + fileName)
